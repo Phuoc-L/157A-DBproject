@@ -91,6 +91,8 @@ if os.path.exists('ProteinSequence.db'):
         )""")
     
     #Insert all data into table
+    c.execute("INSERT INTO Organism VALUES ('HELLO', 'HI', 1)")
+    c.execute("INSERT INTO Organism VALUES ('bruh', 'dam', 3)")
 
     #commit the database
     connect.commit()
@@ -124,15 +126,18 @@ def query():
         qw.destroy()
 
     #button to close the query window
-    CloseButton = Button(qw, text="Close", command=Close, pady=10)
+    CloseButton = Button(qw, text="Close", command=Close, padx=20, pady=10)
     CloseButton.place(x=10,y=10)
-    output = "hello"
+    
+    #execute any query from the queryBox
+    c.execute(queryBox.get())
+    output = c.fetchall()
     Label(qw, text=output, font=('Calibri 15'), bg='black').place(x=10,y=60)
 
     qw.mainloop()
 
 #button to start the database query
-querybutton = Button(main, text="Submit", command=query, pady=10)
+querybutton = Button(main, text="Submit", command=query, padx=20, pady=10)
 querybutton.place(x=10,y=140)
 
 #closes the main program - destroys everything (database and the window)
@@ -141,7 +146,7 @@ def Exit():
     main.destroy()
 
 #Button to quit the program
-ExitButton = Button(main, text="Exit", command=Exit, pady=10)
+ExitButton = Button(main, text="Exit", command=Exit, padx=20, pady=10)
 ExitButton.place(x=10,y=10)
 
 #runs the program
