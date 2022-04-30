@@ -91,8 +91,18 @@ if os.path.exists('ProteinSequence.db'):
         )""")
     
     #Insert all data into table
-    c.execute("INSERT INTO Organism VALUES ('HELLO', 'HI', 1)")
-    c.execute("INSERT INTO Organism VALUES ('bruh', 'dam', 3)")
+    #insert into the organism table
+    c.execute("""INSERT INTO Organism VALUES 
+            ('HELLO', 'HI', 1), 
+            ('bruh', 'dam', 3)
+            
+            """)
+    #insert into the Lab table
+    c.execute("""INSERT INTO Lab VALUES 
+            (1, 'HELLO', 'hello', 1, 'heloo', 'hellll', 3), 
+            (2, 'bruh', 'hol', 3, 'dedw', 'dewdfew', 4)
+            
+            """)
 
     #commit the database
     connect.commit()
@@ -129,10 +139,19 @@ def query():
     CloseButton = Button(qw, text="Close", command=Close, padx=20, pady=10)
     CloseButton.place(x=10,y=10)
     
+    #output text box
+    outPutText = Text(qw, width=75, height=6, wrap=WORD, background="black")
+    outPutText.grid(sticky=W)
+    outPutText.place(x=10, y=60)
+
     #execute any query from the queryBox
     c.execute(queryBox.get())
-    output = c.fetchall()
-    Label(qw, text=output, font=('Calibri 15'), bg='black').place(x=10,y=60)
+    outputs = c.fetchall()
+
+    #output any query into output box
+    for output in outputs:
+        outPutText.insert(END, output)
+        outPutText.insert(END, '\n')
 
     qw.mainloop()
 
