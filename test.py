@@ -1,3 +1,4 @@
+from curses.textpad import Textbox
 import os
 
 #Importing Tkinter - Python GUI library
@@ -18,6 +19,7 @@ if os.path.exists('ProteinSequence.db'):
     #create cursor to point in the database
     c = connect.cursor()
 
+    #Create all tables
     #Create the Organism table
     c.execute("""
         CREATE TABLE Organism(
@@ -88,7 +90,7 @@ if os.path.exists('ProteinSequence.db'):
             FOREIGN KEY (SampleID) REFERENCES Sample(SampleID)
         )""")
     
-
+    #Insert all data into table
 
     #commit the database
     connect.commit()
@@ -108,13 +110,38 @@ Label(main, text="Query the Sequence Database", font=('Calibri 15'), bg='black')
 queryBox = Entry(main, width= 80)
 queryBox.place(x=10,y=90)
 
-#closes the program - destroys everything (database and the window)
-def close():
+#create the query window
+def query():
+    qw = tkinter.Tk()
+
+    #Specifies basic aspects of the query window
+    qw.title("Query Result")
+    qw.configure(background='black')
+    qw.geometry('800x300')
+
+    #closes the query
+    def Close():
+        qw.destroy()
+
+    #button to close the query window
+    CloseButton = Button(qw, text="Close", command=Close, pady=10)
+    CloseButton.place(x=10,y=10)
+    output = "hello"
+    Label(qw, text=output, font=('Calibri 15'), bg='black').place(x=10,y=60)
+
+    qw.mainloop()
+
+#button to start the database query
+querybutton = Button(main, text="Submit", command=query, pady=10)
+querybutton.place(x=10,y=140)
+
+#closes the main program - destroys everything (database and the window)
+def Exit():
     connect.close()
     main.destroy()
 
 #Button to quit the program
-ExitButton = Button(main, text="Exit", command=close, pady=10)
+ExitButton = Button(main, text="Exit", command=Exit, pady=10)
 ExitButton.place(x=10,y=10)
 
 #runs the program
