@@ -1,4 +1,4 @@
-from curses.textpad import Textbox
+
 import os
 
 #Importing Tkinter - Python GUI library
