@@ -71,6 +71,7 @@ if os.path.exists('ProteinSequence.db'):
     c.execute("""
         CREATE TABLE Sample(
             SampleID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+            DateSampled INTEGER NOT NULL,
             TimeSampled INTEGER NOT NULL,
             SampleSource TEXT NOT NULL,
             SequenceOrganism TEXT NOT NULL,
@@ -196,10 +197,10 @@ def submissionAl():
             ('Sadiyah', 'Carr', 95, 3, 2)
             """)
     #insert into the Sample table
-    c.execute("""INSERT INTO Sample (TimeSampled, SampleSource, SequenceOrganism, LabID) VALUES
-            (time('15:05:12'), 'Lab Sample', 'Culex pipiens', 2), 
-            (time('13:20:22'), 'Field Sample', 'Rhinocerotidae', 1), 
-            (time('09:32:04'), 'Field Sample', 'Panthera leo', 3) 
+    c.execute("""INSERT INTO Sample (DateSampled, TimeSampled, SampleSource, SequenceOrganism, LabID) VALUES
+            (date('2013-04-23'), time('15:05:12'), 'Lab Sample', 'Culex pipiens', 2), 
+            (date('2016-12-10'), time('13:20:22'), 'Field Sample', 'Rhinocerotidae', 1), 
+            (date('2018-07-03'), time('09:32:04'), 'Field Sample', 'Panthera leo', 3) 
             """)
 
     # commit the database
